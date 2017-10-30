@@ -1,11 +1,20 @@
 
 
 devel.prototype.drawInterface = function(){
-	var $ = this.win.$, queries, selectMenu, i, $overlay;
+	var $ = this.win.$, queries, selectMenu, i, $overlay, typesOptions;
 	queries = this.templates;
 	selectMenu = "<select id='queryTypeSelect'><option>Choose...</option>";
 	for(i=queries.length; i--;) selectMenu += "<option value='"+queries[i].Name+"'>"+queries[i].Name+"</option>";
 	selectMenu += "</select>";
+	typesOptions = ['<option>Choose...</option>'];
+	for(i=0; i<jSQL.types.list.length; i++){
+		typesOptions.push("<option value='"+jSQL.types.list[i].type+"'>"+jSQL.types.list[i].type+"</option>");
+		if(jSQL.types.list[i].aliases && jSQL.types.list[i].aliases.length){
+			for(var n=0; n<jSQL.types.list[i].aliases.length; n++){
+				typesOptions.push("<option value='"+jSQL.types.list[i].aliases[n]+"'> -- "+jSQL.types.list[i].aliases[n]+"</option>");
+			}
+		}
+	}
 	$overlay = $("body").empty();
 	if(this.wrapper) $overlay.empty();
 	$overlay.html('<h5>jSQL Version: ' + jSQL.version + ' | jSQLDevel Version: ' + this.version + '</h5>');
@@ -30,14 +39,7 @@ devel.prototype.drawInterface = function(){
 					"				 <tr>"+
 					"					 <td><input type=text class=colname-jma placeholder='Column Name' /></td>"+
 					"					 <td>"+
-					"						 <select>"+
-					"							 <option>NUMERIC</option>"+
-					"							 <option>TINYINT</option>"+
-					"							 <option>SMALLINT</option>"+
-					"							 <option>MEDIUMINT</option>"+
-					"							 <option>INT</option>"+
-					"							 <option>BIGINT</option>"+
-					"						 </select>"+
+					"						 <select>"+(typesOptions.join(''))+"</select>"+
 					"					 </td>"+
 					"					 <td><input type=checkbox class=col-ai-jma /></td>"+
 					"					 <td><input type=checkbox class=col-pk-jma /></td>"+

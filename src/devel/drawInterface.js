@@ -1,52 +1,43 @@
 
 
 devel.prototype.drawInterface = function(){
-	var $ = this.win.$, queries, selectMenu, i, $overlay, typesOptions;
+	var $ = this.win.$, queries, selectMenu, i, $overlay;
 	queries = this.templates;
 	selectMenu = "<select id='queryTypeSelect'><option>Choose...</option>";
 	for(i=queries.length; i--;) selectMenu += "<option value='"+queries[i].Name+"'>"+queries[i].Name+"</option>";
 	selectMenu += "</select>";
-	typesOptions = ['<option>Choose...</option>'];
-	for(i=0; i<jSQL.types.list.length; i++){
-		typesOptions.push("<option value='"+jSQL.types.list[i].type+"'>"+jSQL.types.list[i].type+"</option>");
-		if(jSQL.types.list[i].aliases && jSQL.types.list[i].aliases.length){
-			for(var n=0; n<jSQL.types.list[i].aliases.length; n++){
-				typesOptions.push("<option value='"+jSQL.types.list[i].aliases[n]+"'> -- "+jSQL.types.list[i].aliases[n]+"</option>");
-			}
-		}
-	}
 	$overlay = $("body").empty();
 	if(this.wrapper) $overlay.empty();
-	$overlay.html('<h5>jSQL Version: ' + jSQL.version + ' | jSQLDevel Version: ' + this.version + '</h5>');
+	$overlay.html('<div style=float:right><h5><span class="ui-icon ui-icon-heart"></span> jSQL Version: ' + jSQL.version + ' | jSQLDevel Version: ' + this.version + '</h5></div><div style=float:left><img src="http://i.imgur.com/VQlJKOc.png" style=height:3em;line-height:0.9; /></div><div style=clear:both></div>');
 	$overlay.append("<div id='jSQLTableTabs'>"+
 					"	 <ul>"+
-					"		 <li><a href='#jSQLNewTableTab'>New Table</a></li>"+
-					"		 <li><a href='#jSQLResultsTab'>Query</a></li>"+
+					"		 <li><a href='#jSQLNewTableTab'><span class='ui-icon ui-icon-flag'></span> Table Wizard</a></li>"+
+					"		 <li><a href='#jSQLResultsTab'><span class='ui-icon ui-icon-document-b'></span> Worksheet</a></li>"+
 					"	 </ul>"+
 					"	 <div id='jSQLNewTableTab'>"+
 					"		 <input type='text' id='tableName' placeholder='Table Name' />"+
+					"		 <label><input type='checkbox' id='ifnotexists' /> IF NOT EXISTS</label>"+
+					"		 <button id=addTableColumnRow>Add Column</button>"+
+					"		 <div style='width:100%;overflow:auto'>"+
 					"		 <table>"+
 					"			 <thead>"+
 					"				 <tr>"+
-					"					 <th>-Name-</th>"+
-					"					 <th>-Type-</th>"+
-					"					 <th>-AI-</th>"+
-					"					 <th>-PK-</th>"+
-					"					 <th>-UN-</th>"+
+					"					 <th>Name</th>"+
+					"					 <th>Type</th>"+
+					"					 <th>NULL</th>"+
+					"					 <th>DEFAULT</th>"+
+					"					 <th>AI</th>"+
+					"					 <th>PK</th>"+
+					"					 <th>UN</th>"+
+					"					 <th></th>"+
 					"				 </tr>"+
 					"			 </thead>"+
-					"			 <tbody>"+
-					"				 <tr>"+
-					"					 <td><input type=text class=colname-jma placeholder='Column Name' /></td>"+
-					"					 <td>"+
-					"						 <select>"+(typesOptions.join(''))+"</select>"+
-					"					 </td>"+
-					"					 <td><input type=checkbox class=col-ai-jma /></td>"+
-					"					 <td><input type=checkbox class=col-pk-jma /></td>"+
-					"					 <td><input type=checkbox class=col-un-jma /></td>"+
-					"				 </tr>"+
-					"			 </tbody>"+
+					"			 <tbody></tbody>"+
 					"		 </table>"+
+					"		 </div>"+
+					"		 <hr>"+
+					"		 <button id=resetTableBuilder>Reset</button>"+
+					"		 <button id=runTableBuilder>Build SQL</button>"+
 					"	 </div>"+
 					"	 <div id='jSQLResultsTab'>"+
 					"		 <div>"+
@@ -58,6 +49,7 @@ devel.prototype.drawInterface = function(){
 					"		 <div style='text-align:right;'>"+
 					"			 <button id='jSQLExecuteQueryButton'>Run Query</button>"+
 					"			 <button id='jSQLMinifyQueryButton'>Minify</button>"+
+					"			 <button id='jSQLShowCodeButton'>Show Code</button>"+
 					"			 <button id='jSQLResetButton'>Reset</button>"+
 					"			 <button id='jSQLCommitButton'>Commit</button>"+
 					"		 </div>"+
@@ -73,4 +65,13 @@ devel.prototype.drawInterface = function(){
 	$('#jSQLResetButton').css({"line-height": "0.9"});
 	$("#jSQLCommitButton").button({icons: { primary: "ui-icon-check"}});
 	$('#jSQLCommitButton').css({"line-height": "0.9"});
+	$("#resetTableBuilder").button({icons: { primary: "ui-icon-refresh"}});
+	$('#resetTableBuilder').css({"line-height": "0.9"});
+	$("#addTableColumnRow").button({icons: { primary: "ui-icon-circle-plus"}});
+	$('#addTableColumnRow').css({"line-height": "0.9"});
+	$("#runTableBuilder").button({icons: { primary: "ui-icon-triangle-1-e"}});
+	$('#runTableBuilder').css({"line-height": "0.9"});
+	$("#jSQLShowCodeButton").button({icons: { primary: "ui-icon-script"}});
+	$('#jSQLShowCodeButton').css({"line-height": "0.9"});
+	this.addColumnRow();
 };

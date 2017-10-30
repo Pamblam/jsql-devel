@@ -2,6 +2,7 @@
 devel.prototype.loadDependencies = function(cb){
 	var d = this;
 	var p = this.doc.getElementById('progress');
+	this.getDependencies();
 	(function recurse(i) {
 		var resource;
 		

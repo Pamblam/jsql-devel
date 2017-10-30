@@ -1,7 +1,14 @@
 
 devel.prototype.open = function(wrapper_selector, cb){
 	
-	if(this.isOpened()) return this;
+	if(this.isOpened()) return;
+	
+	if("object" === typeof wrapper_selector){
+		var params = wrapper_selector;
+		wrapper_selector = params.wrapper ? params.wrapper : undefined;
+		cb = "function" === typeof params.callback ? params.callback : (typeof cb === "function" ? cb : function(){});
+		
+	}
 	
 	if("function" === typeof wrapper_selector) cb = wrapper_selector;
 	
@@ -35,7 +42,7 @@ devel.prototype.open = function(wrapper_selector, cb){
 			});
 		});
 	};
-	this.doc.write("<!doctype HTML><html><head><style>body{font-family:Tahoma, Geneva, sans-serif;}</style></head><body><span>Loading jSQL Devel... (<span id='progress'>0%</span>)</span></body></html>");
+	this.doc.write("<!doctype HTML><html><head><style>body{font-family:Tahoma, Geneva, sans-serif;}</style></head><body><center><br><br><img src='http://i.imgur.com/VQlJKOc.png' style=width:40vw; /><br><span>Loading jSQL Devel... (<span id='progress'>0%</span>)</span></center></body></html>");
 	this.doc.close();
 	
 }

@@ -1,4 +1,4 @@
-# jsql-developer v1.0.0
+# jsql-developer v2.0.4
 
 formerly "jSQLMyAdmin" ...lol
 

@@ -1,3 +1,5 @@
+var fs = require('fs');
+var UglifyJS = require("uglify-js");
 
 module.exports = function(grunt) {
 	
@@ -81,7 +83,7 @@ module.exports = function(grunt) {
 		copy: {
 			main: {
 				files: [
-					{src: 'node_modules/jsql-official/jSQL.min.js', dest: 'demo/jSQL.min.js'}
+					{src: 'node_modules/jsql-official/jSQL.min.js', dest: 'demos/plugin/jSQL.min.js'}
 				]
 			}
 		}
@@ -92,11 +94,27 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-contrib-copy');
 	
+	grunt.registerTask("make-btn", function(){
+		// Generate the URI
+		var min = fs.readFileSync('jsql-devel.min.js').toString().split("\n");
+		min.shift(); min = min.join('');
+		var load_code = fs.readFileSync('src/helpers/loadjSQL.js').toString();
+		load_code = UglifyJS.minify(load_code).code;
+		var code = ['void(function(){', load_code, 'loadjSQL(function(){', min, 'jSQL.devel.open();','});','return false;}());'].join('');
+		code = encodeURIComponent(code);
+		code = 'javascript:'+code;
+		// Generate the demo
+		var html = fs.readFileSync('src/button_demo/index.html').toString();
+		html = html.replace(/\#JSQLDEVELBTN\#/g, code);
+		fs.writeFileSync('demos/toolbar_button/index.html', html);
+	});
+	
 	grunt.registerTask('default', [
 		'concat',
 		'string-replace',
 		'uglify',
-		'copy'
+		'copy',
+		'make-btn'
 	]);
 	
 };

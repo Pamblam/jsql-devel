@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>jsql-devel demo</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<style>#devel{
+			border: 3px dotted brown;
+			margin: 1px auto 0 auto;
+			width:94vw;
+			height:94vh;
+		}</style>
+	</head>
+	<body>
+		<div id="devel"></div>
+		<script src="jSQL.min.js"></script>
+		<script src="../../jsql-devel.js"></script>
+		<script>
+			jSQL.devel.open({
+				wrapper: "#devel",
+				callback: function(){ console.log("poop"); },
+				bg: "lightblue",
+				header_img: "batman.png",
+				loader_img: "spongebob.gif",
+				theme: "sunny",
+			});
+		</script>
+	</body>
+</html>

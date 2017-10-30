@@ -8,7 +8,7 @@ devel.prototype.drawInterface = function(){
 	selectMenu += "</select>";
 	$overlay = $("body").empty();
 	if(this.wrapper) $overlay.empty();
-	$overlay.html('<div style=float:right><h5><span class="ui-icon ui-icon-heart"></span> jSQL Version: ' + jSQL.version + ' | jSQLDevel Version: ' + this.version + '</h5></div><div style=float:left><img src="http://i.imgur.com/VQlJKOc.png" style=height:3em;line-height:0.9; /></div><div style=clear:both></div>');
+	$overlay.html('<div style=float:right><h5><span class="ui-icon ui-icon-heart"></span> jSQL Version: ' + jSQL.version + ' | jSQLDevel Version: ' + this.version + '</h5></div><div style=float:left>'+(this.header_img?'<img src="'+this.header_img+'" style=height:3em;line-height:0.9; />':'')+'</div><div style=clear:both></div>');
 	$overlay.append("<div id='jSQLTableTabs'>"+
 					"	 <ul>"+
 					"		 <li><a href='#jSQLNewTableTab'><span class='ui-icon ui-icon-flag'></span> Table Wizard</a></li>"+

@@ -23,6 +23,8 @@ function devel(){
 	this.drawnTables = [];
 	this.wrapper_selector = null;
 	this.theme = "base";
+	this.header_img = "http://i.imgur.com/VQlJKOc.png";
+	this.loader_img = "http://i.imgur.com/VQlJKOc.png";
 	this.dependencies = null;
 	this.templates = [
 		{Name:"Create", Query: "-- A Create Query Template\nCREATE TABLE IF NOT EXISTS `myTable` \n(\t`String` VARCHAR(20),\n\t`Number` INT\n)"},
@@ -667,12 +669,18 @@ devel.prototype.open = function(wrapper_selector, cb){
 	
 	if(this.isOpened()) return;
 	
+	var params = {};
 	if("object" === typeof wrapper_selector){
-		var params = wrapper_selector;
+		for(var p in wrapper_selector)
+			if(wrapper_selector.hasOwnProperty(p))
+				params[p] = wrapper_selector[p];
 		wrapper_selector = params.wrapper ? params.wrapper : undefined;
 		cb = "function" === typeof params.callback ? params.callback : (typeof cb === "function" ? cb : function(){});
-		
 	}
+	
+	if(params.theme) this.theme = params.theme;
+	if(params.header_img) this.header_img = params.header_img;
+	if(params.loader_img) this.loader_img = params.loader_img;
 	
 	if("function" === typeof wrapper_selector) cb = wrapper_selector;
 	
@@ -680,10 +688,11 @@ devel.prototype.open = function(wrapper_selector, cb){
 	this.wrapper_selector = wrapper_selector;
 	if(this.wrapper_selector) this.wrapper = document.querySelector(this.wrapper_selector);
 	
-	var iframe_styles = "overflow-x: auto; border: 0px none transparent; padding: 0px; width:100%; height: 100%;";
-	iframe_styles += this.wrapper === null ? 
-		"position:fixed; top:0; left:0; overflow-y:auto; z-index: 2147483646; background: rgba(255,255,255,0.9);" :
-		"background-color: transparent;" ;
+	this.bg = this.wrapper === null ? 'rgba(255,255,255,0.9)' : 'transparent';
+	if(params.bg) this.bg = params.bg;
+	
+	var iframe_styles = "background:"+params.bg+"; overflow-x: auto; border: 0px none transparent; padding: 0px; width:100%; height: 100%;";
+	if(this.wrapper === null) iframe_styles += "position:fixed; top:0; left:0; overflow-y:auto; z-index: 2147483646;";
 	
 	this.iframe = document.createElement("iframe");
 	this.iframe.setAttribute("style", iframe_styles);
@@ -706,7 +715,7 @@ devel.prototype.open = function(wrapper_selector, cb){
 			});
 		});
 	};
-	this.doc.write("<!doctype HTML><html><head><style>body{font-family:Tahoma, Geneva, sans-serif;}</style></head><body><center><br><br><img src='http://i.imgur.com/VQlJKOc.png' style=width:40vw; /><br><span>Loading jSQL Devel... (<span id='progress'>0%</span>)</span></center></body></html>");
+	this.doc.write("<!doctype HTML><html><head><style>body{font-family:Tahoma, Geneva, sans-serif;}</style></head><body><center><br><br>"+(this.loader_img?"<img src='"+this.loader_img+"' style=width:40vw; /><br>":"")+"<span>Loading jSQL Devel... (<span id='progress'>0%</span>)</span></center></body></html>");
 	this.doc.close();
 	
 }
@@ -779,7 +788,7 @@ devel.prototype.drawInterface = function(){
 	selectMenu += "</select>";
 	$overlay = $("body").empty();
 	if(this.wrapper) $overlay.empty();
-	$overlay.html('<div style=float:right><h5><span class="ui-icon ui-icon-heart"></span> jSQL Version: ' + jSQL.version + ' | jSQLDevel Version: ' + this.version + '</h5></div><div style=float:left><img src="http://i.imgur.com/VQlJKOc.png" style=height:3em;line-height:0.9; /></div><div style=clear:both></div>');
+	$overlay.html('<div style=float:right><h5><span class="ui-icon ui-icon-heart"></span> jSQL Version: ' + jSQL.version + ' | jSQLDevel Version: ' + this.version + '</h5></div><div style=float:left>'+(this.header_img?'<img src="'+this.header_img+'" style=height:3em;line-height:0.9; />':'')+'</div><div style=clear:both></div>');
 	$overlay.append("<div id='jSQLTableTabs'>"+
 					"	 <ul>"+
 					"		 <li><a href='#jSQLNewTableTab'><span class='ui-icon ui-icon-flag'></span> Table Wizard</a></li>"+

@@ -9,6 +9,8 @@ function devel(){
 	this.drawnTables = [];
 	this.wrapper_selector = null;
 	this.theme = "base";
+	this.header_img = "http://i.imgur.com/VQlJKOc.png";
+	this.loader_img = "http://i.imgur.com/VQlJKOc.png";
 	this.dependencies = null;
 	this.templates = [
 		{Name:"Create", Query: "-- A Create Query Template\nCREATE TABLE IF NOT EXISTS `myTable` \n(\t`String` VARCHAR(20),\n\t`Number` INT\n)"},

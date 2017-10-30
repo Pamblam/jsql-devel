@@ -1,0 +1,5 @@
+
+(function(){
+if(!window.jSQL) return false;
+
+var JSQL_DEVEL_VERSION = {{ VERSION }};

@@ -1,0 +1,40 @@
+{
+  "name": "jsql-developer",
+  "version": "1.0.0",
+  "description": "A development & debugging plugin for jsql-official.",
+  "main": "jsql-devel.js",
+  "directories": {},
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://Pamblam@github.com/Pamblam/jsql-devel.git"
+  },
+  "keywords": [
+    "sql",
+    "jsql",
+    "jsql-official",
+    "javascript",
+    "query",
+    "language",
+    "data",
+    "management",
+    "state",
+    "database",
+    "sql-engine",
+    "j-squirrel"
+  ],
+  "author": "Rob Parham",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/Pamblam/jSQL/issues"
+  },
+  "homepage": "http://pamblam.github.io/jSQL/plugins/",
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-uglify": "^3.1.0",
+    "grunt-string-replace": "^1.3.1",
+    "jsql-official": "^3.1.2"
+  }
+}

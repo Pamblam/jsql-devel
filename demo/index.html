@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>TODO supply a title</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+		<button>click me</button>
+		<button>no click me</button>
+		<div style="width:70vw; height: 70vh; background: lightblue;"></div>
+		<script src="jSQL.min.js"></script>
+		<script src="../jsql-devel.js"></script>
+		<script>
+			document.getElementsByTagName("button")[0].onclick = function(){
+				jSQL.devel.open();
+			};
+			document.getElementsByTagName("button")[1].onclick = function(){
+				jSQL.devel.open("div");
+			};
+		</script>
+	</body>
+</html>

@@ -1,6 +1,6 @@
 {
   "name": "jsql-devel",
-  "version": "2.0.4",
+  "version": "2.0.6",
   "description": "A development & debugging plugin for jsql-official.",
   "main": "jsql-devel.js",
   "directories": {},

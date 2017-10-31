@@ -25,8 +25,7 @@ There are methods to control just about everything, but these are the important 
 
 ### Table Wizard Generates Table Code
 
-Ma
-king development easier :rainbow:
+Making development easier :rainbow:
 
 ![Table Wizard](https://i.imgur.com/f0oZnsL.gif)
 

@@ -1,5 +1,5 @@
 /**
- * jsql-devel - v2.0.4
+ * jsql-devel - v2.0.6
  * A development & debugging plugin for jsql-official.
  * @author Rob Parham
  * @website http://pamblam.github.io/jSQL/plugins/
@@ -10,7 +10,7 @@
 (function(){
 if(!window.jSQL) return false;
 
-var JSQL_DEVEL_VERSION = "2.0.4";
+var JSQL_DEVEL_VERSION = "2.0.6";
 
 
 function devel(){

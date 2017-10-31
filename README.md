@@ -1,5 +1,5 @@
 
-## jSQL Devel v2.0.4
+## jSQL Devel v2.0.6
 
 jSQL Devel is a fun little development tool for [jSQL](https://github.com/Pamblam/jSQL).
 

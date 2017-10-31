@@ -3,7 +3,7 @@
 // @namespace   pamblam.com
 // @description A development & debugging plugin for jsql-official.
 // @include     *
-// @version     2.0.4
+// @version     2.0.6
 // @grant       none
 // ==/UserScript==
 
@@ -53,9 +53,9 @@ function showCornerButton(cb) {
 
 showCornerButton(function(){
 
-console.log("asdfasd");
+
 /**
- * jsql-devel - v2.0.4
+ * jsql-devel - v2.0.6
  * A development & debugging plugin for jsql-official.
  * @author Rob Parham
  * @website http://pamblam.github.io/jSQL/plugins/
@@ -66,7 +66,7 @@ console.log("asdfasd");
 (function(){
 if(!window.jSQL) return false;
 
-var JSQL_DEVEL_VERSION = "2.0.4";
+var JSQL_DEVEL_VERSION = "2.0.6";
 
 
 function devel(){

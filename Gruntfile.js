@@ -109,12 +109,24 @@ module.exports = function(grunt) {
 		fs.writeFileSync('demos/toolbar_button/index.html', html);
 	});
 	
+	grunt.registerTask("make-userscript", function(){
+		var pkg = JSON.parse(fs.readFileSync('package.json').toString());
+		var header = fs.readFileSync('src/wrapper/userscript_header.js').toString();
+		var loader = fs.readFileSync('src/helpers/loadjSQL.js').toString();
+		var button = fs.readFileSync('src/helpers/showCornerButton.js').toString();
+		var main = fs.readFileSync('jsql-devel.js').toString();
+		header = header.replace(/\#vers\#/g, pkg.version).replace(/\#desc\#/g, pkg.description);
+		var code = [header, "\nvoid(function(){\n\n", loader, "\n\n",button, "\n\n\nshowCornerButton(function(){\n\n\n", main, "\n\njSQL.devel.open();", "\n\n\n});","\n\nreturn false;\n}());"].join('');
+		fs.writeFileSync('jsql-devel.userscript.js', code);
+	});
+	
 	grunt.registerTask('default', [
 		'concat',
 		'string-replace',
 		'uglify',
 		'copy',
-		'make-btn'
+		'make-btn',
+		"make-userscript"
 	]);
 	
 };
